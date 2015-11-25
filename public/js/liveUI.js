@@ -1,6 +1,6 @@
 
-var days = {}
-
+var days = [];
+var numberOfDays =  days.length + 1;
 function clearList(){
   $('.hotelList').children().remove();
   $('.restaurantList').children().remove();
@@ -13,8 +13,16 @@ function populateLists(dayNumber){
   $('.activityList').html(days[dayNumber].activities);
 }
 
+function renameDays () {
+  for(var i = 1; i < days.length; i--){
+    console.log($('.day-buttons')[0])
+    $('.day-buttons'[i]).text() = i
+  }
+}
+
 var Day = function(selectedDay, hotel, restaurants, activities){
-  days[selectedDay] = {hotel: hotel, restaurants: restaurants, activities: activities};
+  days.push({hotel: hotel, restaurants: restaurants, activities: activities});
+
 }
 
 
@@ -55,14 +63,13 @@ var Day = function(selectedDay, hotel, restaurants, activities){
  })
 
  $('.day-buttons').on('click', '.addDay', function(){
-   var numberOfDays = $('.day-buttons').children().length;
-   var currentDay = new Day(numberOfDays-1, $('.hotelList').html(), $('.restaurantList').html(), $('.activityList').html());
+   Day(numberOfDays, $('.hotelList').html(), $('.restaurantList').html(), $('.activityList').html());
    $('.current-day').removeClass('current-day');
-   $('.day-buttons').append("<button class='btn btn-circle day-btn current-day'>" + numberOfDays + "</button>");
+   $('.day-buttons').append("<button class='btn btn-circle day-btn current-day'>" + (numberOfDays+1) + "</button>");
    $('.addDay').remove();
-   $('.day-buttons').append("<button class='btn btn-circle addDay'>+</button>")
-   $('.day-titles').append('<span id="day-title"> <span>Day ' + (numberOfDays - 1) +' <button class="btn btn-xs btn-danger removeDay btn-circle">x</button></span></span>')
-
+   $('.day-buttons').append("<button class='btn btn-circle addDay'>+</button>");
+   $('.day-titles').append('<span id="day-title"> <span>Day ' + numberOfDays +' <button class="btn btn-xs btn-danger removeDay btn-circle">x</button></span></span>');
+   numberOfDays+=1;
    clearList();
  })
 
@@ -77,11 +84,12 @@ $('.day-buttons').on('click', '.day-btn', function(){
 
 $('.day-titles').on('click', '.removeDay', function(){
   var day = $(this).parent().text().split(" ")[1];
-
+  console.log(days[day])
   if(days[day]){
-    delete days[day];
+    days.splice(day-1, 1)
+    numberOfDays-=1;
     $(this).parent().parent().remove();
   }
-
+  console.log(days)
 })
 
