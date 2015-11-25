@@ -1,11 +1,20 @@
 
 var days = {}
 
+function clearList(){
+  $('.activityList').children().remove();
+  $('.hotelList').children().remove();
+  $('.restaurantList').children().remove();
+}
+
+function populateLists(dayNumber){
+  $('.activityList').html(days[dayNumber].activities);
+  $('.hotelList').html(days[dayNumber].hotel);
+  $('.restaurantList').html(days[dayNumber].restaurants);
+}
+
 var Day = function(selectedDay, hotel, restaurants, activities){
-  this.selectedDay = selectedDay;
-  this.hotel = hotel;
-  this.restaurants = restaurants;
-  this.activities = activities;
+  days[selectedDay] = {hotel: hotel, restaurants: restaurants, activities: activities};
 }
 
 
@@ -47,11 +56,23 @@ var Day = function(selectedDay, hotel, restaurants, activities){
 
  $('.day-buttons').on('click', '.addDay', function(){
    var numberOfDays = $('.day-buttons').children().length;
-   var currentDay = new Day(numOfDays, $('.hotelList').html(), $('.restaurantList').html(), $('.activityList').html());
-
-
+   var currentDay = new Day(numberOfDays-1, $('.hotelList').html(), $('.restaurantList').html(), $('.activityList').html());
    $('.current-day').removeClass('current-day');
    $('.day-buttons').append("<button class='btn btn-circle day-btn current-day'>" + numberOfDays + "</button>");
    $('.addDay').remove();
-   $('.day-buttons').append("<button class='btn btn-circle day-btn addDay'>+</button>")
+   $('.day-buttons').append("<button class='btn btn-circle addDay'>+</button>")
+
+   clearList();
  })
+
+$('.day-buttons').on('click', '.day-btn', function(){
+  clearList();
+  $('.current-day').removeClass('current-day');
+  $(this).addClass('current-day');
+  if(days[$(this).text()]){
+    populateLists($(this).text());
+  }
+})
+
+
+
