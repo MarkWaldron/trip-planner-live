@@ -13,11 +13,20 @@ function populateLists(dayNumber){
   $('.activityList').html(days[dayNumber].activities);
 }
 
-function renameDays () {
-  for(var i = 1; i < days.length; i--){
-    console.log($('.day-buttons')[0])
-    $('.day-buttons'[i]).text() = i
+function redoButtons() {
+  $('.day-buttons').children().remove();
+  $('.day-titles').children().remove();
+  for(var i = 1; i < days.length+1; i++){
+    if(i == days.length){
+      $('.day-buttons').append("<button class='btn btn-circle day-btn current-day'>" + (i) + "</button>");
+    } else {
+      $('.day-buttons').append("<button class='btn btn-circle day-btn'>" + (i) + "</button>");
+    }
+    $('.day-titles').append('<span id="day-title"> <span>Day ' + i +' <button class="btn btn-xs btn-danger removeDay btn-circle">x</button></span></span>');
   }
+
+  $('.day-buttons').append("<button class='btn btn-circle addDay'>+</button>");
+
 }
 
 var Day = function(selectedDay, hotel, restaurants, activities){
@@ -88,8 +97,8 @@ $('.day-titles').on('click', '.removeDay', function(){
   if(days[day]){
     days.splice(day-1, 1)
     numberOfDays-=1;
+    redoButtons();
     $(this).parent().parent().remove();
   }
   console.log(days)
 })
-
