@@ -61,7 +61,7 @@ var Day = function(selectedDay, hotel, restaurants, activities){
    $('.day-buttons').append("<button class='btn btn-circle day-btn current-day'>" + numberOfDays + "</button>");
    $('.addDay').remove();
    $('.day-buttons').append("<button class='btn btn-circle addDay'>+</button>")
-   $('.day-titles').append('<span id="day-title"> <span>Day' + (numberOfDays - 1) +'</span> <button class="btn btn-xs btn-danger remove btn-circle">x</button></span>')
+   $('.day-titles').append('<span id="day-title"> <span>Day ' + (numberOfDays - 1) +' <button class="btn btn-xs btn-danger removeDay btn-circle">x</button></span></span>')
 
    clearList();
  })
@@ -75,5 +75,13 @@ $('.day-buttons').on('click', '.day-btn', function(){
   }
 })
 
+$('.day-titles').on('click', '.removeDay', function(){
+  var day = $(this).parent().text().split(" ")[1];
 
+  if(days[day]){
+    delete days[day];
+    $(this).parent().parent().remove();
+  }
+
+})
 
