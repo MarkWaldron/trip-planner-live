@@ -1,6 +1,7 @@
 
 var days = [];
 var numberOfDays =  days.length + 1;
+var map = initialize_gmaps();
 function clearList(){
   $('.hotelList').children().remove();
   $('.restaurantList').children().remove();
@@ -29,6 +30,15 @@ function redoButtons() {
 
 }
 
+var getPlaceObject = function (typeOfPlace, nameOfPlace) {
+        var placeCollection = window['all_' + typeOfPlace];
+
+        return placeCollection.filter(function (place) {
+            return place.name === nameOfPlace;
+        })[0];
+
+    };
+
 var Day = function(selectedDay, hotel, restaurants, activities){
   days.push({hotel: hotel, restaurants: restaurants, activities: activities});
 
@@ -40,7 +50,10 @@ var Day = function(selectedDay, hotel, restaurants, activities){
     var hotelName = $('#hotels').find(':selected').text();
     $('.hotelList')
     .append("<div class='itinerary-item'><span class='title'>" + hotelName + "</span><button class='btn btn-xs btn-danger remove btn-circle'>x</button></div>");
+    var placeObj = getPlaceObject('hotels', hotelName);
+    drawLocation(map, placeObj.place[0].location);
   }
+
  });
 
  $('.addRestaurant').on('click', function(){
@@ -48,6 +61,9 @@ var Day = function(selectedDay, hotel, restaurants, activities){
      var restaurantName = $('#restaurants').find(':selected').text();
      $('.restaurantList')
      .append("<div class='itinerary-item'><span class='title'>" + restaurantName + "</span><button class='btn btn-xs btn-danger remove btn-circle'>x</button></div>");
+     var placeObj = getPlaceObject('restaurants', restaurantName);
+     drawLocation(map, placeObj.place[0].location);
+
    }
  });
 
@@ -56,6 +72,9 @@ var Day = function(selectedDay, hotel, restaurants, activities){
      var activityName = $('#activities').find(':selected').text();
      $('.activityList')
      .append("<div class='itinerary-item'><span class='title'>" + activityName + "</span><button class='btn btn-xs btn-danger remove btn-circle'>x</button></div>");
+     var placeObj = getPlaceObject('activities', activityName);
+     drawLocation(map, placeObj.place[0].location);
+
    }
  });
 
