@@ -1,3 +1,14 @@
+
+var days = {}
+
+var Day = function(selectedDay, hotel, restaurants, activities){
+  this.selectedDay = selectedDay;
+  this.hotel = hotel;
+  this.restaurants = restaurants;
+  this.activities = activities;
+}
+
+
  $('.addHotel').on('click', function(){
   if($('.hotelList').children().length < 1){
     var hotelName = $('#hotels').find(':selected').text();
@@ -36,8 +47,10 @@
 
  $('.day-buttons').on('click', '.addDay', function(){
    var numberOfDays = $('.day-buttons').children().length;
-   $('.current-day').removeClass('current-day');
+   var currentDay = new Day(numOfDays, $('.hotelList').html(), $('.restaurantList').html(), $('.activityList').html());
 
+
+   $('.current-day').removeClass('current-day');
    $('.day-buttons').append("<button class='btn btn-circle day-btn current-day'>" + numberOfDays + "</button>");
    $('.addDay').remove();
    $('.day-buttons').append("<button class='btn btn-circle day-btn addDay'>+</button>")
