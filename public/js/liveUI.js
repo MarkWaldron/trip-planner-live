@@ -2,15 +2,15 @@
 var days = {}
 
 function clearList(){
-  $('.activityList').children().remove();
   $('.hotelList').children().remove();
   $('.restaurantList').children().remove();
+  $('.activityList').children().remove();
 }
 
 function populateLists(dayNumber){
-  $('.activityList').html(days[dayNumber].activities);
   $('.hotelList').html(days[dayNumber].hotel);
   $('.restaurantList').html(days[dayNumber].restaurants);
+  $('.activityList').html(days[dayNumber].activities);
 }
 
 var Day = function(selectedDay, hotel, restaurants, activities){
@@ -61,6 +61,7 @@ var Day = function(selectedDay, hotel, restaurants, activities){
    $('.day-buttons').append("<button class='btn btn-circle day-btn current-day'>" + numberOfDays + "</button>");
    $('.addDay').remove();
    $('.day-buttons').append("<button class='btn btn-circle addDay'>+</button>")
+   $('.day-titles').append('<span id="day-title"> <span>Day' + (numberOfDays - 1) +'</span> <button class="btn btn-xs btn-danger remove btn-circle">x</button></span>')
 
    clearList();
  })
