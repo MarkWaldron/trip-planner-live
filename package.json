@@ -14,8 +14,8 @@
     "body-parser": "^1.13.3",
     "bootstrap": "3.3.5",
     "express": "^4.13.3",
+    "mongoose": "^5.7.6",
     "jquery": "3.4.1",
-    "mongoose": "^4.1.2",
     "morgan": "^1.6.1",
     "swig": "^1.4.2"
   },
